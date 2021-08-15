@@ -1,0 +1,19 @@
+on,condition,value
+Energy,>=,1260
+Energy,<=,1540
+Protein,>=,20
+Total Dietary,>=,11
+Total Dietary,<=,20
+Vitamin C,>=,35
+Vitamin C,<=,510
+Vitamin B1 (Thiamine),>,0.4
+Vitamin B2 (Rivoflavin),>,0.5
+Calcium,>=,500
+Calcium,<=,2500
+Iron,>=,5
+Iron,<=,40
+Sodium,<,1600
+Linoleic Acid,>=,4.6
+Linoleic Acid,<=,9.1
+Alpha-Linolenic Acid,>=,0.6
+Alpha-Linolenic Acid,<=,1.17
