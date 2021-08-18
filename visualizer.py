@@ -12,7 +12,7 @@ def bar_menu_test_nutrition(diet, criterias, fig_path):
     assert set(type(k) for k in criterias) == {Criteria}, 'The criterias should be list of Criteria object'
     result_table = pd.DataFrame()
     for criteria in criterias:
-        result_table['crit_' + str(criterias.index(criteria) + 1)] = pd.Series(diet_test_nutrition(diet, criteria)).value_counts()
+        result_table[criteria.on + criteria.condition + str(criteria.value)] = pd.Series(diet_test_nutrition(diet, criteria)).value_counts()
     result_table.transpose().plot(kind='bar', stacked = True, figsize=(20, 10), fontsize=15).get_figure().savefig(fig_path)
 
 #%%
@@ -32,7 +32,7 @@ def heatmap_menu_test_nutrition(diet, criterias, fig_path):
     assert set(type(k) for k in criterias) == {Criteria}, 'The criterias should be list of Criteria object'
     result_table = pd.DataFrame()
     for criteria in criterias:
-        result_table[criteria.condition + criteria.on] = pd.Series(diet_test_nutrition(diet, criteria))
+        result_table[criteria.on + criteria.condition + str(criteria.value)] = pd.Series(diet_test_nutrition(diet, criteria))
     ax = sns.heatmap(result_table)
     plt.savefig(fig_path)
 # %%

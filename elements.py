@@ -30,11 +30,11 @@ class Ingredient:
     
     def __hash__(self):
         return hash(self.name)
-
+    '''
     def add_name(self, additional_name):
         assert additional_name == re.sub('[^0-9a-zA-Zㄱ-힗]', '', additional_name), 'It is invalid name'
         globals()[additional_name] = self
-
+    '''
     @classmethod
     def export_catalog(cls):
         coppied = cls.__catalog
@@ -75,10 +75,11 @@ class Food:
         for nutrition_name in temp_nutrition.index.drop_duplicates():
             self.nutrition[nutrition_name] = temp_nutrition.loc[nutrition_name].sum()
     
+    '''
     def add_name(self, additional_name):
         assert additional_name == re.sub('[^0-9a-zA-Zㄱ-힗]', '', additional_name), 'It is invalid name'
         globals()[additional_name] = self
-
+    '''
     @classmethod
     def export_catalog(cls):
         coppied = cls.__catalog
