@@ -1,9 +1,7 @@
-#%%
 import pandas as pd
 import numpy as np
 from pandas.api.types import is_numeric_dtype, is_string_dtype
 
-#%%
 class Ingredient:
     """
     Ingredient class represent grocery ingredient which make up dishes. The class consists with name, category and nutrition.
@@ -16,6 +14,10 @@ class Ingredient:
     """
     __catalog = {}
     def __init__(self, name, nutrition, category = None):
+        """
+        The constructor of Ingredient instance. If construction successfully completes successfully, add the instance to the class catalog with the key as name.
+        name and nutrition of instance should input. category is optional.
+        """
         self.name = name
         self.category = category
         assert type(nutrition) == dict, 'nutrition should be dictionary'
@@ -27,6 +29,9 @@ class Ingredient:
         Ingredient.__catalog[self.name] = self
     
     def __del__(self):
+        """
+        The destructor of Ingredient instance. It delete the instance from class catalog.
+        """
         del Ingredient.__catalog[self.name]
 
     def __repr__(self):
@@ -44,10 +49,11 @@ class Ingredient:
     '''
     @classmethod
     def export_catalog(cls):
-        coppied = cls.__catalog
-        return coppied
+        """
+        It return copy of class catalog. Using the catalog, you can access to instance by its name. 'catalog['(name of instance)']'
+        """
+        return cls.__catalog
 
-#%%
 class Menu:
     """
     Menu class represent dish which make up diets. The class consists with name, category, ingredient and nutrition.
@@ -62,6 +68,10 @@ class Menu:
     """
     __catalog = {}
     def __init__(self, name, ingredients, category = None, note = None):
+        """
+        The constructor of Menu instance. If construction successfully completes successfully, add the instance to the class catalog with the key as name.
+        name and ingredients variable of instance should input. category and note are optional. nutritions variable is automatically computed.
+        """
         self.name = name
         self.category = category
         self.note = note
@@ -69,10 +79,13 @@ class Menu:
         assert set(type(k) for k in ingredients.keys()) == {Ingredient}, 'The keys of ingredients should be Ingredient object'
         assert is_numeric_dtype(pd.Series(list(ingredients.values()))), 'The value of ingredients should numeric'
         self.ingredients = ingredients
-        self.calculate_nutrition()
+        self.__calculate_nutrition()
         Menu.__catalog[self.name] = self
     
     def __del__(self):
+        """
+        The destructor of Menu instance. It delete the instance from class catalog.
+        """
         del Menu.__catalog[self.name]
                 
     def __repr__(self):
@@ -84,7 +97,10 @@ class Menu:
     def __hash__(self):
         return hash(self.name)
 
-    def calculate_nutrition(self):
+    def __calculate_nutrition(self):
+        """
+        Make nutritions variable of instance from its ingredients variable. For stable operation, this method cannot be executed alone.
+        """
         temp_nutrition = pd.Series(dtype = 'float64')
         for ingredient, amount in self.ingredients.items():
             temp_nutrition = pd.concat([temp_nutrition, pd.Series(ingredient.nutrition) * amount / 100])
@@ -99,10 +115,12 @@ class Menu:
     '''
     @classmethod
     def export_catalog(cls):
+        """
+        It return copy of class catalog. Using the catalog, you can access to instance by its name. 'catalog['(name of instance)']'
+        """
         coppied = cls.__catalog
         return coppied
 
-#%%
 class Diet:
     """
     Menu class represent dish which make up diets. The class consists with plan, plan length, ingredient and nutrition.
@@ -113,19 +131,26 @@ class Diet:
         nutritions: 'nutritions' is double dictionary variable which stands for nutritions contained in each menu plan. The keys are identifier of diet. It is same of plan's one. The value of nutirition is again dictioinaty. The keys of inner dictionary is name of nutrition (string) and value is amount of key nutrition (numeric). This is for the whold of diet. For example, {'2021-08-01' : {'Carbohydrate' : 900, ...}} can be item of nutrition. It is calculated automatically from the menu list of plan. So you don't have to input nutrition of diet to generate instance.
     """
     def __init__(self, plan):
+        """
+        The constructor of Diet instance.
+        plan should input. nutritions and ingredients are automatically computed.
+        """
         assert type(plan) == dict, 'The values of diet plan should be Dictionary'
         for v in plan.values():
             assert set(type(k) for k in v) == {Menu}, 'The values of diet plan dictionary should be List of Menu object'
         assert len(set([len(v) for v in plan.values()])) == 1, "All menu lists must have same length. Try using 'empty_menu' to extend short menu list"
         self.plan_length = [len(v) for v in plan.values()][0]
         self.plan = plan
-        self.calculate_nutrition()
-        self.collect_ingredient()
+        self.__calculate_nutrition()
+        self.__collect_ingredient()
     
     def __repr__(self):
         return "The diet of " + str(len(self.plan)) + "day(s) and each diet consist with " + str(self.plan_length) + "dish(es)"
     
-    def calculate_nutrition(self):
+    def __calculate_nutrition(self):
+        """
+        Make nutritions variable of instance from its plan variable. For stable operation, this method cannot be executed alone.
+        """
         temp_table = pd.DataFrame(dtype = 'float64')
         for date, menu_list in self.plan.items():
             menu_nutrition = pd.Series(dtype = 'float64')
@@ -141,7 +166,10 @@ class Diet:
         temp_table.fillna(0, inplace = True)
         self.nutrition = temp_table.to_dict('index')
 
-    def collect_ingredient(self):
+    def __collect_ingredient(self):
+        """
+        Make ingredients variable of instance from its plan variable. For stable operation, this method cannot be executed alone.
+        """
         ingredients_all = {}
         for idx in self.plan.keys():
             ing_list = []
@@ -152,17 +180,22 @@ class Diet:
         self.ingredient = ingredients_all
 
     def menu_category(self):
+        """
+        The method which return dataframe which have category data of menus. The index are key of plan (identifier of diet).
+        """
         category_df = pd.DataFrame(columns = range(self.plan_length), index = self.plan.keys())
         for idx in self.plan.keys():
             category_df.loc[idx] = [v.category for v in self.plan[idx]]
         return category_df
 
     def menu_note(self):
+        """
+        The method which return dataframe which have note data of menus. The index are key of plan (identifier of diet).
+        """
         note_df = pd.DataFrame(columns = range(self.plan_length), index = self.plan.keys())
         for idx in self.plan.keys():
             note_df.loc[idx] = [v.note for v in self.plan[idx]]
         return note_df
 
-#%%
+# The dummy menu instance to fill diet's short plan list.
 empty_menu = Menu(name = 'empty', ingredients = {Ingredient(name = 'empty', nutrition = {"" : 0}) : 0})
-# %%

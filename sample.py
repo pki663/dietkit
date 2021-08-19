@@ -1,11 +1,11 @@
-#%%
 import pandas as pd
 from .elements import Ingredient, Menu, Diet
-import re
 from os.path import dirname
 
-#%%
 def load_ingredients(file_path = None):
+    """
+    Load ingredient data. If file_path is not passed, method loads sample data. It return instance catalog of loaded data.
+    """
     if file_path == None:
         file_path = dirname(__file__) + '/sample_data/sample_ingredients.csv'
     raw_df = pd.read_csv(file_path, encoding = 'cp949', index_col = 0)
@@ -20,8 +20,10 @@ def load_ingredients(file_path = None):
     '''
     return sample_ingredients
 
-#%%
 def load_menus(ingredients = load_ingredients(), file_path = None):
+    """
+    Load menu data. If file_path is not passed, method loads sample data. It return instance catalog of loaded data.
+    """
     if file_path == None:
         file_path = dirname(__file__) + '/sample_data/sample_menus.csv'
     raw_df = pd.read_csv(file_path, encoding = 'cp949', index_col = None)
@@ -44,8 +46,10 @@ def load_menus(ingredients = load_ingredients(), file_path = None):
     '''
     return sample_menus
 
-# %%
 def load_diets(menus = load_menus(), num_loads = 100, file_path = None):
+    """
+    Load diet data. If file_path is not passed, method loads sample data.
+    """
     assert num_loads <= 500, "The maximum number of sample diets is 500"
     if file_path == None:
         file_path = dirname(__file__) + '/sample_data/sample_diet.csv'
@@ -58,4 +62,3 @@ def load_diets(menus = load_menus(), num_loads = 100, file_path = None):
         converted_dict[idx] = converted_menus
     sample_diet = Diet(converted_dict)
     return sample_diet
-# %%
