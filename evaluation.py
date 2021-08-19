@@ -1,5 +1,5 @@
 #%%
-from .elements import Ingredient, Food, Diet
+from .elements import Ingredient, Menu, Diet
 import pandas as pd
 from os.path import dirname
 from pandas.api.types import is_numeric_dtype, is_string_dtype
@@ -26,17 +26,17 @@ def load_sample_criteria(sample_name = 'Korean_standard'):
     return criteria_list
 
 #%%
-def food_test_nutrition(food, criteria):
+def menu_test_nutrition(menu, criteria):
     assert type(criteria) == Criteria, 'The criteria should be Criteria object'
-    assert type(food) == Food, 'The food should be Food object'
+    assert type(menu) == Menu, 'The menu should be Menu object'
     if criteria.condition == '>=':
-        return food.nutrition[criteria.on] >= criteria.value
+        return menu.nutrition[criteria.on] >= criteria.value
     elif criteria.condition == '<=':
-        return food.nutrition[criteria.on] <= criteria.value
+        return menu.nutrition[criteria.on] <= criteria.value
     elif criteria.condition == '>':
-        return food.nutrition[criteria.on] > criteria.value
+        return menu.nutrition[criteria.on] > criteria.value
     elif criteria.condition == '<':
-        return food.nutrition[criteria.on] < criteria.value
+        return menu.nutrition[criteria.on] < criteria.value
 
 #%%
 def diet_test_nutrition(diet, criteria):
@@ -55,11 +55,11 @@ def diet_test_nutrition(diet, criteria):
     return eval_result
 
 #%%
-# Return True if input food includes input ingredient.
-def food_test_ingredient(food, ingredient):
-    assert type(food) == Food, 'The food should be Food object'
+# Return True if input menu includes input ingredient.
+def menu_test_ingredient(menu, ingredient):
+    assert type(menu) == Menu, 'The menu should be Menu object'
     assert type(ingredient) == Ingredient, 'The ingredient should be Ingredient object'
-    if ingredient in food.ingredients.keys():
+    if ingredient in menu.ingredients.keys():
         return True
     else:
         return False
