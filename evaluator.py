@@ -3,7 +3,7 @@ import pandas as pd
 from os.path import dirname
 from pandas.api.types import is_numeric_dtype, is_string_dtype
 
-class Criteria:
+class Criterion:
     """
     Criteria class represent nutrition criteria. This is used as input to the evaluation method to evaluate nutrition of the menu or diet. 
     Instance Variables:
@@ -33,14 +33,14 @@ def load_sample_criteria(sample_name = 'Korean_standard'):
     standard_table['value'] = pd.to_numeric(standard_table['value'])
     criteria_list = []
     for idx in standard_table.index:
-        criteria_list.append(Criteria(on = standard_table.loc[idx, 'on'], condition = standard_table.loc[idx, 'condition'], value = standard_table.loc[idx, 'value']))
+        criteria_list.append(Criterion(on = standard_table.loc[idx, 'on'], condition = standard_table.loc[idx, 'condition'], value = standard_table.loc[idx, 'value']))
     return criteria_list
 
 def menu_test_nutrition(menu, criteria):
     """
-    Test menu's nutrition with Creteria instance. If menu pass criteria, it returns True. Otherwise, False.
+    Test menu's nutrition with Criteria instance. If menu pass criteria, it returns True. Otherwise, False.
     """
-    assert type(criteria) == Criteria, 'The criteria should be Criteria object'
+    assert type(criteria) == Criterion, 'The criteria should be Criteria object'
     assert type(menu) == Menu, 'The menu should be Menu object'
     if criteria.condition == '>=':
         return menu.nutrition[criteria.on] >= criteria.value
@@ -53,10 +53,10 @@ def menu_test_nutrition(menu, criteria):
 
 def diet_test_nutrition(diet, criteria):
     """
-    Test diet's nutrition with Creteria instance. This method apply criteria to each menu list of the diet's plan.
+    Test diet's nutrition with Criteria instance. This function apply criteria to each menu list of the diet's plan.
     It returns dictionary. The key is same of diet's plan (identifier of diet). The value is boolean if the plan's food list pass criteria.
     """
-    assert type(criteria) == Criteria, 'The criteria should be Criteria object'
+    assert type(criteria) == Criterion, 'The criteria should be Criteria object'
     assert type(diet) == Diet, 'The diet should be Diet object'
     eval_result = {}
     for date in diet.nutrition.keys():
@@ -72,7 +72,7 @@ def diet_test_nutrition(diet, criteria):
 
 def menu_test_ingredient(menu, ingredient):
     """
-    Test the menu includes input ingredient. If the menu includes, method returns True. Otherwise, False.
+    Test the menu includes input ingredient. If the menu includes, function returns True. Otherwise, False.
     """
     assert type(menu) == Menu, 'The menu should be Menu object'
     assert type(ingredient) == Ingredient, 'The ingredient should be Ingredient object'
@@ -83,7 +83,7 @@ def menu_test_ingredient(menu, ingredient):
 
 def diet_test_ingredient(diet, ingredient):
     """
-    Test the diet includes input ingredient. This method apply test to each menu list of the diet's plan.
+    Test the diet includes input ingredient. This function apply test to each menu list of the diet's plan.
     It returns dictionary. The key is same of diet's plan (identifier of diet). The value is boolean if the plan's food list pass test.
     """
     assert type(diet) == Diet, 'The diet should be Diet object'
