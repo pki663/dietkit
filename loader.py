@@ -2,7 +2,7 @@ import pandas as pd
 from .elements import Ingredient, Menu, Diet
 from os.path import dirname
 
-def load_ingredients(file_path = None):
+def load_ingredient(file_path = None):
     """
     Load ingredient data. If file_path is not passed, method loads sample data. It return instance catalog of loaded data.
     """
@@ -20,7 +20,7 @@ def load_ingredients(file_path = None):
     '''
     return sample_ingredients
 
-def load_menus(ingredients = load_ingredients(), file_path = None):
+def load_menu(ingredients = load_ingredient(), file_path = None):
     """
     Load menu data. If file_path is not passed, method loads sample data. It return instance catalog of loaded data.
     """
@@ -46,7 +46,7 @@ def load_menus(ingredients = load_ingredients(), file_path = None):
     '''
     return sample_menus
 
-def load_diets(menus = load_menus(), num_loads = 100, file_path = None):
+def load_diet(menus = load_menu(), num_loads = 100, file_path = None):
     """
     Load diet data. If file_path is not passed, method loads sample data.
     """
