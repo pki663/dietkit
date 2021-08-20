@@ -1,6 +1,6 @@
 import pandas as pd
 from .elements import Ingredient, Diet
-from .evaluator import diet_test_nutrition, diet_test_ingredient, Criteria
+from .evaluator import diet_test_nutrition, diet_test_ingredient, Criterion
 import matplotlib.pyplot as plt
 import seaborn as sns
 
@@ -13,7 +13,7 @@ def bar_menu_test_nutrition(diet, criterias, fig_path):
     """
     assert type(diet) == Diet, 'The diet should be Diet object'
     assert type(criterias) == list, 'The criterias should be list of Criteria object'
-    assert set(type(k) for k in criterias) == {Criteria}, 'The criterias should be list of Criteria object'
+    assert set(type(k) for k in criterias) == {Criterion}, 'The criterias should be list of Criteria object'
     result_table = pd.DataFrame()
     for criteria in criterias:
         result_table[criteria.on + criteria.condition + str(criteria.value)] = pd.Series(diet_test_nutrition(diet, criteria)).value_counts()
@@ -44,7 +44,7 @@ def heatmap_menu_test_nutrition(diet, criterias, fig_path):
     """
     assert type(diet) == Diet, 'The diet should be Diet object'
     assert type(criterias) == list, 'The criterias should be list of Criteria object'
-    assert set(type(k) for k in criterias) == {Criteria}, 'The criterias should be list of Criteria object'
+    assert set(type(k) for k in criterias) == {Criterion}, 'The criterias should be list of Criteria object'
     result_table = pd.DataFrame()
     for criteria in criterias:
         result_table[criteria.on + criteria.condition + str(criteria.value)] = pd.Series(diet_test_nutrition(diet, criteria))
@@ -70,7 +70,7 @@ def heatmap_menu_test_ingredient(diet, ingredients, fig_path):
 #%%
 def diet_ingredient_freq(diet, fig_path, sortby = 'frequency', plot_ratio = 0.1):
     """
-    This method graphically indicates how many times each ingredient has been used in the entire diet. If it was used several times in a menu list, count to 1.
+    This function graphically show how many times each ingredient has been used in the entire diet. If it was used several times in a menu list, count to 1.
     plot_ratio indicates ratio of will be displayed ingredients among the entire ingredients of entire diet plan. If entire diet include 100 kinds of ingredients and plot_ratio is 0.1, than the graph shows 100 * 0.1 = 10 ingredients. The default value of plot_ratio is 0.1.
     sortby indicates how to sort the ingredients. This is either 'frequency'(default) or 'name'. If sortby is 'frequency', plotting the frequently used ingredients first. If sortby is 'name', plot the fastest ingredients in alphabetical order first.
     """
