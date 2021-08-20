@@ -1,6 +1,6 @@
 import pandas as pd
 from .elements import Ingredient, Diet
-from .evaluation import diet_test_nutrition, diet_test_ingredient, Criteria
+from .evaluator import diet_test_nutrition, diet_test_ingredient, Criteria
 import matplotlib.pyplot as plt
 import seaborn as sns
 
