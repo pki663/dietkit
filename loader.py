@@ -46,12 +46,17 @@ def load_menu(ingredients = load_ingredient(), file_path = None):
     '''
     return sample_menus
 
-def load_diet(menus = load_menu(), num_loads = 100, file_path = None):
+def load_diet(menus = load_menu(), num_loads = 100, file_path = None, sample_name = None):
     """
-    Load diet data. If file_path is not passed, method loads sample data.
+    Load diet data. If file_path is not passed, method loads sample data. You can select which sample data will be loaded by specify 'sample_name'. See readme to know what sample names are available.
     """
     if file_path == None:
-        file_path = dirname(__file__) + '/sample_data/sample_diet.csv'
+        if sample_name == 'human':
+            file_path = dirname(__file__) + '/sample_data/sample_diet_human.csv'
+        elif sample_name == 'complete nutrition':
+            file_path = dirname(__file__) + '/sample_data/sample_diet_complete_nutrition.csv'
+        else:
+            raise NameError("For now, the available sample_name is 'human' or 'complete nutrition'")
     raw_df = pd.read_csv(file_path, encoding = 'cp949', index_col = 0).iloc[:num_loads]
     assert num_loads <= len(raw_df), "Requested a larger number of diets than the data have."
     converted_dict = {}
