@@ -56,11 +56,11 @@ class Ingredient:
 
 class Menu:
     """
-    Menu class represent dish which make up diets. The class consists with name, category, ingredient and nutrition.
+    Menu class represent dish which make up diets. The class consists with name, category, ingredients and nutrition.
     Instance Variables:
         name: name is string variable which stand for name of the menu's name. For example, Fruit salad or Beef stew might be name. It is essential variable.
         category: category is string variable which stand for the category to which the menu belongs. For example, salad or soup might be category. It is optional variable.
-        ingredient: ingredient is dictionary variable which stand for ingredients contained in the one-time provision of menu. The keys of ingredient is ingredient instance which belongs to menu and the value of ingredient is amount of key ingredient (numeric). It is essential variable.
+        ingredients: 'ingredients' is dictionary variable which stand for ingredients contained in the one-time provision of menu. The keys of ingredient is ingredient instance which belongs to menu and the value of ingredient is amount of key ingredient (numeric). It is essential variable.
         note: note is string variable. It is additional information about menu. For example, 'It has spicy flavor' can be note. It is optional variable.
         nutrition: nutrition is dictionary variable which stands for nutritions contained in the one-time provision of menu. The keys of nutrition is name of nutrition (string) and values of nutrition is amount of key nutrition (numeric). For example, {'Carbohydrate' : 150} might be item of nutrition. nutrition is calculated automatically from the ingredient variable. So you don't have to input nutrition of menu to generate instance.
     Class Variable:
@@ -123,10 +123,10 @@ class Menu:
 
 class Diet:
     """
-    Menu class represent dish which make up diets. The class consists with plan, plan length, ingredient and nutrition.
+    Diet class represent plan of diets. The class consists with plan, plan length, ingredient and nutrition.
     Instance Variables:
-        plan: plan is dictionary variable which stand for menu composition of diets. The keys of plan is identifier of diet. It can be serial number, sting nickname or date. The values of plan is list of Food instances. This list is menu composition of the diet. For example {'2021-08-01' : ['Fruit salad', 'Potato soup', 'White bread' ...]} can be item of plan.
-        plan_length: plan length is positive integer value which means the length of plan values, the lists of Food instances. So, all diets should consists of the same number of menus. If this is not satisfied, the constructor will raise error. If you have diet plan which has the lists of different numbers of foods. Try to use 'empty_menu', the dummy menu instance that the our package provides. It is automatically recognized without user input.
+        plan: plan is dictionary variable which stand for menu composition of diets. The keys of plan is identifier of diet. It can be serial number, sting nickname or date. The values of plan is list of Menu instances. This list is menu composition of the diet. For example {'2021-08-01' : ['Fruit salad', 'Potato soup', 'White bread' ...]} can be item of plan.
+        plan_length: plan length is positive integer value which means the length of plan values, the lists of Menu instances. So, all diets should consists of the same number of menus. If this is not satisfied, the constructor will raise error. If you have diet plan which has the lists of different numbers of menus. Try to use 'empty_menu', the dummy menu instance that the our package provides. It is automatically recognized without user input.
         ingredients: 'ingredients' is double dictionary variable which stands for ingredients contained in each menu plan. The keys are identifier of diet. It is same of plan's one. The value of nutirition is again dictioinaty. The keys of inner dictionary is Ingredient instance and value is amount of key ingredient (numeric). This is for the whold of diet. For example, {'2021-08-01' : {'Tomato' : 50, ...}} can be item of ingredients. It is calculated automatically from the menu list of plan. So you don't have to input ingredients of diet to generate instance.
         nutritions: 'nutritions' is double dictionary variable which stands for nutritions contained in each menu plan. The keys are identifier of diet. It is same of plan's one. The value of nutirition is again dictioinaty. The keys of inner dictionary is name of nutrition (string) and value is amount of key nutrition (numeric). This is for the whold of diet. For example, {'2021-08-01' : {'Carbohydrate' : 900, ...}} can be item of nutrition. It is calculated automatically from the menu list of plan. So you don't have to input nutrition of diet to generate instance.
     """
