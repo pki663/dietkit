@@ -4,6 +4,8 @@ Energy,<=,1540
 Protein,>=,20
 Total Dietary,>=,11
 Total Dietary,<=,20
+Vitamin A,>=,230
+Vitamin A,<=,750
 Vitamin C,>=,35
 Vitamin C,<=,510
 Vitamin B1 (Thiamine),>,0.4
