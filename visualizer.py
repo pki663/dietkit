@@ -17,6 +17,7 @@ def bar_menu_test_nutrition(diet, criterias, fig_path):
     result_table = pd.DataFrame()
     for criteria in criterias:
         result_table[criteria.on + criteria.condition + str(criteria.value)] = pd.Series(diet_test_nutrition(diet, criteria)).value_counts()
+    result_table.rename(index = {True : 'Passed', False : 'Failed'}, inplace = True)
     result_table.transpose().plot(kind='bar', stacked = True).get_figure().savefig(fig_path)
 
 #%%
@@ -32,7 +33,8 @@ def bar_menu_test_ingredient(diet, ingredients, fig_path):
     result_table = pd.DataFrame()
     for ingredient in ingredients:
         result_table[ingredient.name] = pd.Series(diet_test_ingredient(diet, ingredient)).value_counts()
-    result_table.transpose().plot(kind='bar', stacked = True).get_figure().savefig(fig_path)
+    result_table.rename(index = {True : 'Passed', False : 'Failed'}, inplace = True)
+    result_table.transpose().plot(kind='bar', stacked = True, label = ['Passed', 'Failed']).get_figure().savefig(fig_path)
 
 # %%
 def heatmap_menu_test_nutrition(diet, criterias, fig_path):
