@@ -50,10 +50,10 @@ def load_diet(menus = load_menu(), num_loads = 100, file_path = None):
     """
     Load diet data. If file_path is not passed, method loads sample data.
     """
-    assert num_loads <= 500, "The maximum number of sample diets is 500"
     if file_path == None:
         file_path = dirname(__file__) + '/sample_data/sample_diet.csv'
     raw_df = pd.read_csv(file_path, encoding = 'cp949', index_col = 0).iloc[:num_loads]
+    assert num_loads <= len(raw_df), "Requested a larger number of diets than the data have."
     converted_dict = {}
     for idx in raw_df.index:
         converted_menus = []
