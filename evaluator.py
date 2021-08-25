@@ -29,7 +29,7 @@ def load_sample_criteria(sample_name = 'Korean_standard'):
     """
     Load sample criteria from file. The sample criteria is Korean standard nutrition criteria.
     """
-    standard_table = pd.read_csv(dirname(__file__) + '/sample_data/' + sample_name + '.csv', index_col = None)
+    standard_table = pd.read_csv(dirname(__file__) + '/samples/' + sample_name + '.csv', index_col = None)
     standard_table['value'] = pd.to_numeric(standard_table['value'])
     criteria_list = []
     for idx in standard_table.index:
