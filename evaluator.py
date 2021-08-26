@@ -25,7 +25,7 @@ class Criterion:
     def __repr__(self):
         return 'The criteria determine (' + self.on + ' ' + self.condition + ' ' + str(self.value) + ')'
 
-def load_sample_criteria(sample_name = 'Korean_standard'):
+def load_sample_criteria(sample_name = 'korean_standard_criteria'):
     """
     Load sample criteria from file. The sample criteria is Korean standard nutrition criteria.
     """

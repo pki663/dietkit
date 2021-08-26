@@ -2,12 +2,18 @@ import pandas as pd
 from .elements import Ingredient, Menu, Diet
 from os.path import dirname
 
-def load_ingredient(file_path = None):
+def load_ingredient(file_path = None, sample_language = 'eng'):
     """
     Load ingredient data. If file_path is not passed, method loads sample data. It return instance catalog of loaded data.
     """
     if file_path == None:
-        file_path = dirname(__file__) + '/samples/sample_ingredients.csv'
+        if sample_language == 'eng':
+            file_path = dirname(__file__) + '/samples/sample_ingredients_eng.csv'
+        elif sample_language == 'kor':
+            file_path = dirname(__file__) + '/samples/sample_ingredients_kor.csv'
+        else:
+            raise NameError("The available sample_language is 'kor' or 'eng'")
+
     raw_df = pd.read_csv(file_path, encoding = 'cp949', index_col = 0)
     sample_ingredients = {}
     for idx in raw_df.index:
@@ -20,12 +26,18 @@ def load_ingredient(file_path = None):
     '''
     return sample_ingredients
 
-def load_menu(ingredients = load_ingredient(), file_path = None):
+def load_menu(ingredients = load_ingredient(), file_path = None, sample_language = 'eng'):
     """
     Load menu data. If file_path is not passed, method loads sample data. It return instance catalog of loaded data.
     """
     if file_path == None:
-        file_path = dirname(__file__) + '/samples/sample_menus.csv'
+        if sample_language == 'eng':
+            file_path = dirname(__file__) + '/samples/sample_menus_eng.csv'
+        elif sample_language == 'kor':
+            file_path = dirname(__file__) + '/samples/sample_menus_kor.csv'
+        else:
+            raise NameError("The available sample_language is 'kor' or 'eng'")
+    
     raw_df = pd.read_csv(file_path, encoding = 'cp949', index_col = None)
     raw_ingredients = pd.DataFrame(data = raw_df['weight'].values, index = pd.MultiIndex.from_frame(raw_df.fillna(method = 'ffill')[['name', 'ingredient']]), columns = ['weight'])
     info = raw_df.loc[pd.notna(raw_df['name']), ['name', 'category', 'note']].set_index('name')
@@ -46,17 +58,19 @@ def load_menu(ingredients = load_ingredient(), file_path = None):
     '''
     return sample_menus
 
-def load_diet(menus = load_menu(), num_loads = 100, file_path = None, sample_name = None):
+def load_diet(menus = load_menu(), num_loads = 100, file_path = None, sample_language = 'eng', sample_name = None):
     """
     Load diet data. If file_path is not passed, method loads sample data. You can select which sample data will be loaded by specify 'sample_name'. See readme to know what sample names are available.
     """
+    assert sample_language in ['eng', 'kor'], "The available sample_language is 'kor' or 'eng'"
+
     if file_path == None:
         if sample_name == 'human':
-            file_path = dirname(__file__) + '/samples/sample_diet_human.csv'
+            file_path = dirname(__file__) + '/samples/sample_diet_human_' + sample_language + '.csv'
         elif sample_name == 'complete nutrition':
-            file_path = dirname(__file__) + '/samples/sample_diet_complete_nutrition.csv'
+            file_path = dirname(__file__) + '/samples/sample_diet_complete_nutrition_' + sample_language + '.csv'
         else:
-            raise NameError("For now, the available sample_name is 'human' or 'complete nutrition'")
+            raise NameError("The available sample_name is 'human' or 'complete nutrition'")
     raw_df = pd.read_csv(file_path, encoding = 'cp949', index_col = 0).iloc[:num_loads]
     assert num_loads <= len(raw_df), "Requested a larger number of diets than the data have."
     converted_dict = {}
