@@ -14,7 +14,7 @@ def bar_menu_test_nutrition(diet, criterias, fig_path):
     assert type(diet) == Diet, 'The diet should be Diet object'
     assert type(criterias) == list, 'The criterias should be list of Criteria object'
     assert set(type(k) for k in criterias) == {Criterion}, 'The criterias should be list of Criteria object'
-    result_table = pd.DataFrame()
+    result_table = pd.DataFrame(index = [True, False])
     for criteria in criterias:
         result_table[criteria.on + criteria.condition + str(criteria.value)] = pd.Series(diet_test_nutrition(diet, criteria)).value_counts()
     result_table.rename(index = {True : 'Passed', False : 'Failed'}, inplace = True)
@@ -30,7 +30,7 @@ def bar_menu_test_ingredient(diet, ingredients, fig_path):
     assert type(diet) == Diet, 'The diet should be Diet object'
     assert type(ingredients) == list, 'The ingredients should be list of Ingredient object'
     assert set(type(k) for k in ingredients) == {Ingredient}, 'The ingredients should be list of Ingredient object'
-    result_table = pd.DataFrame()
+    result_table = pd.DataFrame(index = [True, False])
     for ingredient in ingredients:
         result_table[ingredient.name] = pd.Series(diet_test_ingredient(diet, ingredient)).value_counts()
     result_table.rename(index = {True : 'Passed', False : 'Failed'}, inplace = True)
