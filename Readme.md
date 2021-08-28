@@ -1,5 +1,6 @@
 # Dietkit
-Dietkit is a library that provides tools for managing and analyzing diets.
+Dietkit is a library that provides tools for managing and analyzing diets.  
+[![DOI](https://zenodo.org/badge/396463175.svg)](https://zenodo.org/badge/latestdoi/396463175)
 
 ## Class Structure
 This library includes three classes to represent diet: Ingredient, Menu and Diet.  
