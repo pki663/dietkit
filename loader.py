@@ -68,7 +68,7 @@ def load_diet(menus = load_menu(), num_loads = 100, file_path = None, sample_lan
     assert sample_language in ['eng', 'kor'], "The available sample_language is 'kor' or 'eng'"
 
     sample_name = sample_name.lower()
-    assert sample_language in ['expert', 'or', 'ml'], "The available sample_name should be one of 'expert', 'or' and 'ml'"
+    assert sample_name in ['expert', 'or', 'ml'], "The available sample_name should be one of 'expert', 'or' and 'ml'"
 
     if file_path == None:
         file_path = dirname(__file__) + '/samples/sample_diet_' + sample_language + '_' + sample_language + '.csv'
