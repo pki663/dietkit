@@ -4,8 +4,9 @@ from os.path import dirname
 
 def load_ingredient(file_path = None, sample_language = 'eng'):
     """
-    Load ingredient data. If file_path is not passed, method loads sample data. It return instance catalog of loaded data.
+    Load ingredient data. If file_path is not passed, method loads sample data. It return instance dictinary of loaded data, which has key: name of ingredient and value: ingredient instance. 
     """
+    sample_language = sample_language.lower()
     if file_path == None:
         if sample_language == 'eng':
             file_path = dirname(__file__) + '/samples/sample_ingredients_eng.csv'
@@ -28,8 +29,9 @@ def load_ingredient(file_path = None, sample_language = 'eng'):
 
 def load_menu(ingredients = load_ingredient(), file_path = None, sample_language = 'eng'):
     """
-    Load menu data. If file_path is not passed, method loads sample data. It return instance catalog of loaded data.
+    Load menu data. If file_path is not passed, method loads sample data. It return instance dictinary of loaded data, which has key: name of menu and value: menu instance.
     """
+    sample_language = sample_language.lower()
     if file_path == None:
         if sample_language == 'eng':
             file_path = dirname(__file__) + '/samples/sample_menus_eng.csv'
@@ -60,17 +62,17 @@ def load_menu(ingredients = load_ingredient(), file_path = None, sample_language
 
 def load_diet(menus = load_menu(), num_loads = 100, file_path = None, sample_language = 'eng', sample_name = None):
     """
-    Load diet data. If file_path is not passed, method loads sample data. You can select which sample data will be loaded by specify 'sample_name'. See readme to know what sample names are available.
+    Load diet data. If file_path is not passed, method loads sample data. You can select which sample data will be loaded by specify 'sample_name' and 'sample_language'. See readme to know what sample names and languages are available.
     """
+    sample_language = sample_language.lower()
     assert sample_language in ['eng', 'kor'], "The available sample_language is 'kor' or 'eng'"
 
+    sample_name = sample_name.lower()
+    assert sample_language in ['expert', 'or', 'ml'], "The available sample_name should be one of 'expert', 'or' and 'ml'"
+
     if file_path == None:
-        if sample_name == 'human':
-            file_path = dirname(__file__) + '/samples/sample_diet_human_' + sample_language + '.csv'
-        elif sample_name == 'complete nutrition':
-            file_path = dirname(__file__) + '/samples/sample_diet_complete_nutrition_' + sample_language + '.csv'
-        else:
-            raise NameError("The available sample_name is 'human' or 'complete nutrition'")
+        file_path = dirname(__file__) + '/samples/sample_diet_' + sample_language + '_' + sample_language + '.csv'
+
     raw_df = pd.read_csv(file_path, encoding = 'cp949', index_col = 0).iloc[:num_loads]
     assert num_loads <= len(raw_df), "Requested a larger number of diets than the data have."
     converted_dict = {}
