@@ -71,7 +71,7 @@ def load_diet(menus = load_menu(), num_loads = 100, file_path = None, sample_lan
     assert sample_name in ['expert', 'or', 'ml'], "The available sample_name should be one of 'expert', 'or' and 'ml'"
 
     if file_path == None:
-        file_path = dirname(__file__) + '/samples/sample_diet_' + sample_language + '_' + sample_language + '.csv'
+        file_path = dirname(__file__) + '/samples/sample_diet_' + sample_name + '_' + sample_language + '.csv'
 
     raw_df = pd.read_csv(file_path, encoding = 'cp949', index_col = 0).iloc[:num_loads]
     assert num_loads <= len(raw_df), "Requested a larger number of diets than the data have."
