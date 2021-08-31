@@ -33,7 +33,7 @@ The sample diet data is work of our research.
 You can find detailed information about sample data in the study: 'Creating the K–MIND dataset for dietplanning and healthcare research: Byintegrating the capabilities of combinatorialoptimization, experts, and controllablegeneration'.
 
 ## Related documents
-This package is subject results of the research: [link TBD]
+This package is subject results of the research: [link TBD]  
 You can check detail information about this package and its sample data in supplementary material of above research: [link TBD]
 
 ## License
