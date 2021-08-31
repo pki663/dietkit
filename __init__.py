@@ -1,4 +1,6 @@
-from .elements import (Ingredient, Menu, Diet, )
+from .elements import *
+from .loader import *
+from .evaluator import *
+from .visualizer import *
 
 #__all__ = ['empty_food']
-__version__ = 'developing_alpha'

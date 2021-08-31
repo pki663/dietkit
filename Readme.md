@@ -20,7 +20,10 @@ Visualizer functions graphically visualize the diet's information or evaluation 
  * seaborn (>= 0.11.0)
 
 ## Installation
-You can install this package by 'pip install pydiet'
+You can install this package by `pip install dietkit`
+
+## Tip
+If `from dietkit import *` is input, dietkit will import all of its functions and classes. It can take quite a long time (About 3 minutes). So, it is recommended to import only the functions to be used.
 
 ## About sample data
 The sample ingredient data were extracted from the 9th revision of the National Standard Food Components provided by Rural Development Administration of Korean government.  
