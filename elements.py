@@ -35,7 +35,7 @@ class Ingredient:
         del Ingredient.__catalog[self.name]
 
     def __repr__(self):
-        return "'" + self.name + "'"
+        return "Ingredient object: " + self.name
 
     def __eq__(self, other):
         return self.name == other.name
@@ -89,7 +89,7 @@ class Menu:
         del Menu.__catalog[self.name]
                 
     def __repr__(self):
-        return "'" + self.name + "'"
+        return "Menu object: " + self.name
 
     def __eq__(self, other):
         return self.name == other.name
@@ -145,7 +145,7 @@ class Diet:
         self.__collect_ingredient()
     
     def __repr__(self):
-        return "The diet of " + str(len(self.plan)) + "day(s) and each diet consist with " + str(self.plan_length) + "dish(es)"
+        return "The diet object of " + str(len(self.plan)) + "day(s) and each diet consist with " + str(self.plan_length) + "dish(es)"
     
     def __calculate_nutrition(self):
         """
