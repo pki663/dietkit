@@ -2,6 +2,9 @@
 Dietkit is a library that provides tools for managing and analyzing diets.  
 [![DOI](https://zenodo.org/badge/396463175.svg)](https://zenodo.org/badge/latestdoi/396463175)
 
+## Guide
+We present example execution in forms of IPython notebook. It includes how to use the classes and functions of dietkit and how to analyze data using them. Therefore, it will provide useful insight about dietkit. So, we strongly recommend to read carefully our example, `sample_execution.ipynb` in root folder.
+
 ## Class Structure
 This library includes three classes to represent diet: Ingredient, Menu and Diet.  
 Ingredient class stands for grocery ingredients. Each Ingredient instance includes nutrition information.  
@@ -35,6 +38,10 @@ You can find detailed information about sample data in the study: 'Creating the 
 ## Related documents
 This package is subject results of the research: [link TBD]  
 You can check detail information about this package and its sample data in supplementary material of above research: [link TBD]
+
+## Related repository
+Here is an example of using dietkit for machine learning of diet data. This will be a helpful case for data scientists:  
+<https://github.com/Leo-Lee92/Diet-Generation-As-Sequence>
 
 ## License
 The source code for Dietkit is subject to the LGPL license.  
