@@ -33,7 +33,7 @@ def bar_menu_test_ingredient(diet, ingredients, fig_path):
     result_table = pd.DataFrame(index = [True, False])
     for ingredient in ingredients:
         result_table[ingredient.name] = pd.Series(diet_test_ingredient(diet, ingredient)).value_counts()
-    result_table.rename(index = {True : 'Passed', False : 'Failed'}, inplace = True)
+    result_table.rename(index = {True : 'Included', False : 'Excluded'}, inplace = True)
     result_table.transpose().plot(kind='bar', stacked = True, label = ['Passed', 'Failed']).get_figure().savefig(fig_path)
 
 # %%
@@ -86,4 +86,4 @@ def diet_ingredient_freq(diet, fig_path, sortby = 'frequency', plot_ratio = 0.1)
     elif sortby == 'frequency':
         plot_series = pd.Series(all_ing).value_counts().sort_values()
     plot_num = round(len(plot_series) * plot_ratio)
-    plot_series.iloc[:plot_num].plot(kind = 'bar', figsize=(20, 10), fontsize=15).get_figure().savefig(fig_path)
+    plot_series.iloc[:plot_num].plot(kind = 'bar', title='Frequency of ingredients usage', fontsize=15).get_figure().savefig(fig_path)
