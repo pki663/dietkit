@@ -1,29 +1,29 @@
 from .elements import Ingredient, Menu, Diet
 import pandas as pd
 from os.path import dirname
-from pandas.api.types import is_numeric_dtype, is_string_dtype
+from pandas.api.types import is_numeric_dtype
 
 class Criterion:
     """
-    Criteria class represent nutrition criteria. This is used as input to the evaluation method to evaluate nutrition of the menu or diet. 
+    Criterion class represent nutrition criterion. This is used as input to the evaluation method to evaluate nutrition of the menu or diet. 
     Instance Variables:
-        on: What nutrients does this criteria limit? It should be string value.
+        on: What nutrients does this criterion limit? It should be string value.
         value: What is the limit value? It should be numeric value.
-        condition: What is pass condition of criteria? It is one of '>', '<', '<=', '>='.
-            '<=': Pass if (amount of nutrition) <= (criteria's value)
-            '>=': Pass if (amount of nutrition) >= (criteria's value)
-            '<': Pass if (amount of nutrition) < (criteria's value)
-            '>': Pass if (amount of nutrition) > (criteria's value)
+        condition: What is pass condition of criterion? It is one of '>', '<', '<=', '>='.
+            '<=': Pass if (amount of nutrition) <= (criterion's value)
+            '>=': Pass if (amount of nutrition) >= (criterion's value)
+            '<': Pass if (amount of nutrition) < (criterion's value)
+            '>': Pass if (amount of nutrition) > (criterion's value)
     """
     def __init__(self, on, condition, value):
         assert condition in ['>', '<', '<=', '>='], "The condition should one of '>', '<', '<=', '>='"
-        assert is_numeric_dtype(value), "The value should numeric"
+        assert is_numeric_dtype(type(value)), "The value should numeric"
         self.condition = condition
         self.value = value
         self.on = on
     
     def __repr__(self):
-        return 'The criteria determine (' + self.on + ' ' + self.condition + ' ' + str(self.value) + ')'
+        return 'The criterion determine (' + self.on + ' ' + self.condition + ' ' + str(self.value) + ')'
 
 def load_sample_criteria(sample_name = 'korean_standard_criteria'):
     """
@@ -40,55 +40,82 @@ def menu_test_nutrition(menu, criteria):
     """
     Test menu's nutrition with Criteria instance. If menu pass criteria, it returns True. Otherwise, False.
     """
-    assert type(criteria) == Criterion, 'The criteria should be Criteria object'
+    if type(criteria) == Criterion:
+        criteria = [criteria]
+    elif (type(criteria) == list):
+        if not set(type(k) for k in criteria) == {Criterion}:
+            raise TypeError( 'The criteria should be Criterion object or list of Criterion object')
     assert type(menu) == Menu, 'The menu should be Menu object'
-    if criteria.condition == '>=':
-        return menu.nutrition[criteria.on] >= criteria.value
-    elif criteria.condition == '<=':
-        return menu.nutrition[criteria.on] <= criteria.value
-    elif criteria.condition == '>':
-        return menu.nutrition[criteria.on] > criteria.value
-    elif criteria.condition == '<':
-        return menu.nutrition[criteria.on] < criteria.value
+    result = pd.Series(index = [repr(i) for i in criteria])
+    for criterion in criteria:
+        if criterion.condition == '>=':
+            result.loc[repr(criterion)] = menu.nutrition[criterion.on] >= criterion.value
+        elif criterion.condition == '<=':
+            result.loc[repr(criterion)] = menu.nutrition[criterion.on] <= criterion.value
+        elif criterion.condition == '>':
+            result.loc[repr(criterion)] = menu.nutrition[criterion.on] > criterion.value
+        elif criterion.condition == '<':
+            result.loc[repr(criterion)] = menu.nutrition[criterion.on] < criterion.value
+    return bool(result.min())
 
 def diet_test_nutrition(diet, criteria):
     """
     Test diet's nutrition with Criteria instance. This function apply criteria to each menu list of the diet's plan.
     It returns dictionary. The key is same of diet's plan (identifier of diet). The value is boolean if the plan's food list pass criteria.
     """
-    assert type(criteria) == Criterion, 'The criteria should be Criteria object'
+    if type(criteria) == Criterion:
+        criteria = [criteria]
+    elif (type(criteria) == list):
+        if not set(type(k) for k in criteria) == {Criterion}:
+            raise TypeError( 'The criteria should be Criterion object or list of Criterion object')
     assert type(diet) == Diet, 'The diet should be Diet object'
-    eval_result = {}
+    result = pd.DataFrame(index = [repr(i) for i in criteria], columns = diet.nutrition.keys())
     for date in diet.nutrition.keys():
-        if criteria.condition == '>=':
-            eval_result[date] = diet.nutrition[date][criteria.on] >= criteria.value           
-        elif criteria.condition == '<=':
-            eval_result[date] = diet.nutrition[date][criteria.on] <= criteria.value 
-        elif criteria.condition == '>':
-            eval_result[date] = diet.nutrition[date][criteria.on] > criteria.value
-        elif criteria.condition == '<':
-            eval_result[date] = diet.nutrition[date][criteria.on] < criteria.value
-    return eval_result
+        for criterion in criteria:
+            if criterion.condition == '>=':
+                temp_result = diet.nutrition[date][criterion.on] >= criterion.value           
+            elif criterion.condition == '<=':
+                temp_result = diet.nutrition[date][criterion.on] <= criterion.value 
+            elif criterion.condition == '>':
+                temp_result = diet.nutrition[date][criterion.on] > criterion.value
+            elif criterion.condition == '<':
+                temp_result = diet.nutrition[date][criterion.on] < criterion.value
+            result.loc[repr(criterion), date] = temp_result
 
-def menu_test_ingredient(menu, ingredient):
+    return result.min(axis = 0).astype(bool).to_dict()
+
+def menu_test_ingredient(menu, ingredients):
     """
-    Test the menu includes input ingredient. If the menu includes, function returns True. Otherwise, False.
+    Test the menu includes input ingredients. If the menu includes, function returns True. Otherwise, False.
     """
+    if type(ingredients) == Ingredient:
+        ingredients = [ingredients]
+    elif (type(ingredients) == list):
+        if not set(type(k) for k in ingredients) == {Ingredient}:
+            raise TypeError('The ingredients should be Ingredient object or list of Ingredient object')
     assert type(menu) == Menu, 'The menu should be Menu object'
-    assert type(ingredient) == Ingredient, 'The ingredient should be Ingredient object'
-    if ingredient in menu.ingredients.keys():
-        return True
-    else:
-        return False
+    result = pd.Series(index = [i.name for i in ingredients])
+    for ing in ingredients:
+        if ing in menu.ingredients.keys():
+            result.loc[ing.name] = True
+        else:
+            result.loc[ing.name] = False
+    return bool(result.min())
 
-def diet_test_ingredient(diet, ingredient):
+def diet_test_ingredient(diet, ingredients):
     """
     Test the diet includes input ingredient. This function apply test to each menu list of the diet's plan.
     It returns dictionary. The key is same of diet's plan (identifier of diet). The value is boolean if the plan's food list pass test.
     """
+    if type(ingredients) == Ingredient:
+        ingredients = [ingredients]
+    elif (type(ingredients) == list):
+        if not set(type(k) for k in ingredients) == {Ingredient}:
+            raise TypeError('The ingredients should be Ingredient object or list of Ingredient object')
     assert type(diet) == Diet, 'The diet should be Diet object'
-    assert type(ingredient) == Ingredient, 'The ingredient should be Ingredient object'
-    eval_result = {}
-    for date in diet.ingredient.keys():
-        eval_result[date] = ingredient in diet.ingredient[date]
-    return eval_result
+    result = pd.DataFrame(index = [i.name for i in ingredients], columns = diet.ingredient.keys())
+    for date in diet.nutrition.keys():
+        for ing in ingredients:
+            result.loc[ing.name, date] = ing in diet.ingredient[date]
+
+    return result.min(axis = 0).astype(bool).to_dict()
