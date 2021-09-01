@@ -41,7 +41,7 @@ You can check detail information about this package and its sample data in suppl
 
 ## Related repository
 Here is an example of using dietkit for machine learning of diet data. This will be a helpful case for data scientists:  
-<https://github.com/Leo-Lee92/Diet-Generation-As-Sequence>
+<https://github.com/Leo-Lee92/Diet-Generation-As-Sequence/tree/master/Code>
 
 ## License
 The source code for Dietkit is subject to the LGPL license.  
