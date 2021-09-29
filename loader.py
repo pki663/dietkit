@@ -6,8 +6,8 @@ def load_ingredient(file_path = None, sample_language = 'eng'):
     """
     Load ingredient data. If file_path is not passed, method loads sample data. It return instance dictinary of loaded data, which has key: name of ingredient and value: ingredient instance. 
     """
-    sample_language = sample_language.lower()
     if file_path == None:
+        sample_language = sample_language.lower()
         if sample_language == 'eng':
             file_path = dirname(__file__) + '/samples/sample_ingredients_eng.csv'
         elif sample_language == 'kor':
@@ -64,13 +64,12 @@ def load_diet(menus = load_menu(), num_loads = 100, file_path = None, sample_lan
     """
     Load diet data. If file_path is not passed, method loads sample data. You can select which sample data will be loaded by specify 'sample_name' and 'sample_language'. See readme to know what sample names and languages are available.
     """
-    sample_language = sample_language.lower()
-    assert sample_language in ['eng', 'kor'], "The available sample_language is 'kor' or 'eng'"
-
-    sample_name = sample_name.lower()
-    assert sample_name in ['expert', 'or', 'ml'], "The available sample_name should be one of 'expert', 'or' and 'ml'"
 
     if file_path == None:
+        sample_name = sample_name.lower()
+        assert sample_name in ['expert', 'or', 'ml'], "The available sample_name should be one of 'expert', 'or' and 'ml'"
+        sample_language = sample_language.lower()
+        assert sample_language in ['eng', 'kor'], "The available sample_language is 'kor' or 'eng'"
         file_path = dirname(__file__) + '/samples/sample_diet_' + sample_name + '_' + sample_language + '.csv'
 
     raw_df = pd.read_csv(file_path, encoding = 'cp949', index_col = 0).iloc[:num_loads]
