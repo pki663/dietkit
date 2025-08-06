@@ -1,0 +1,88 @@
+{
+  "log_enable": false,
+  "nutsave_enable": true,
+  "paths": {
+    "log": ".",
+    "ingredients": "data\\ingredients.csv",
+    "menus": "data\\menus.csv",
+    "nutritions": "data\\nutritions.csv",
+    "allergy": "data\\allergy.csv"
+  },
+  "prev_allergy": [],
+  "allergy_preset": {
+    "\uace1\ub958": ["\uba54\ubc00", "\ubc00", "\uc300"],
+    "\uc11c\ub958": ["\uac10\uc790"],
+    "\ucf69\ub958" : ["\ub300\ub450"],
+    "\ub545\ucf69" : ["\ub545\ucf69"],
+    "\uacac\uacfc\ubc0f\uc885\uc2e4\ub958" : ["\ud638\ub450", "\uc7a3", "\ubc24", "\uc544\ubaac\ub4dc", "\ud5e4\uc990\ub11b", "\uce90\uc288\ub11b", "\ud53c\uce78", "\ud53c\uc2a4\ud0c0\uce58\uc624", "\ub4e4\uae68", "\ucc38\uae68", "\uc528\uc557"],
+    "\uc721\ub958" : ["\ub3fc\uc9c0", "\uc624\ub9ac", "\ub2ed", "\uae30\ud0c0\uac00\uae08\ub958", "\uc18c"],
+    "\ub09c\ub958" : ["\ub09c\ub958"],
+    "\uc6b0\uc720\ubc0f\uc720\uc81c\ud488" : ["\uc6b0\uc720"],
+    "\uc0dd\uc120\ub958" : ["\ubd89\uc740\uc0b4\uc0dd\uc120", "\ud770\uc0b4\uc0dd\uc120", "\uae30\ud0c0", "\uc7a5\uc5b4", "\uba78\uce58"],
+    "\uac11\uac01\ub958" : ["\uac8c", "\uc0c8\uc6b0", "\uac00\uc7ac"],
+    "\uc870\uac1c\ub958" : ["\uc870\uac1c\u002c\uaf2c\ub9c9", "\uad74", "\ud64d\ud569\u002c\ub2f4\uce58"],
+    "\uc624\uc9d5\uc5b4\ub958" : ["\uc624\uc9d5\uc5b4", "\ubb38\uc5b4", "\ub099\uc9c0"],
+    "\ub2ec\ud33d\uc774\ub958" : ["\uace0\ub465", "\uc18c\ub77c", "\uc804\ubcf5"],
+    "\ucc44\uc18c\ub958" : ["\uc624\uc774", "\ub9c8\ub298", "\uc0d0\ub7ec\ub9ac", "\ub2f9\uadfc", "\ube0c\ub85c\ucf5c\ub9ac", "\uc591\ud30c", "\uaca8\uc790", "\ud6c4\ucd94", "\ud1a0\ub9c8\ud1a0"],
+    "\uacfc\uc77c\ub958" : ["\uccb4\ub9ac", "\uc790\ub450", "\ud0a4\uc704", "\ubc14\ub098\ub098", "\uc0ac\uacfc", "\ubc30", "\ucf54\ucf54\ub11b", "\ubcf5\uc22d\uc544", "\uba54\ub860", "\uc218\ubc15", "\uc2dc\ud2b8\ub7ec\uc2a4", "\ub9dd\uace0"],
+    "\uc544\ud669\uc0b0\ub958" : ["\uc544\ud669\uc0b0\ub958"]
+  },
+  "criteria": {
+    "Energy": [
+      1530.0,
+      1870.0
+    ],
+    "Protein": [
+      30.0,
+      null
+    ],
+    "Fat": [
+      null,
+      null
+    ],
+    "Carbohydrate": [
+      null,
+      null
+    ],
+    "Total Dietary": [
+      14.0,
+      25.0
+    ],
+    "Calcium": [
+      600.0,
+      2500.0
+    ],
+    "Iron": [
+      7.0,
+      40.0
+    ],
+    "Sodium": [
+      null,
+      1900.0
+    ],
+    "Vitamin A": [
+      310.0,
+      1100.0
+    ],
+    "Vitamin B1 (Thiamine)": [
+      0.5,
+      null
+    ],
+    "Vitamin B2 (Rivoflavin)": [
+      0.7,
+      null
+    ],
+    "Vitamin C": [
+      40.0,
+      750.0
+    ],
+    "Linoleic Acid": [
+      5608.0,
+      null
+    ],
+    "Alpha-Linolenic Acid": [
+      717.0,
+      null
+    ]
+  }
+}

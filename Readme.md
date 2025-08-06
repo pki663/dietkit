@@ -1,6 +1,7 @@
 # Dietkit
 Dietkit is a library that provides tools for managing and analyzing diets.  
-[![DOI](https://zenodo.org/badge/396463175.svg)](https://zenodo.org/badge/latestdoi/396463175)
+[![DOI](https://zenodo.org/badge/396463175.svg)](https://zenodo.org/badge/latestdoi/396463175)  
+(Added 2025-08-06) We have added the existing fragmented related repositories as subfolders (dietkit_gui, Appendix-of-human-or-articular-intelligence). This repository is no longer maintained since 2021.
 
 ## Guide
 We present example execution in forms of IPython notebook. It includes how to use the classes and functions of dietkit and how to analyze data using them. Therefore, it will provide useful insight about dietkit. So, we strongly recommend to read carefully our example, `sample_execution.ipynb` in root folder.

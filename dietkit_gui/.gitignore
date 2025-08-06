@@ -1,0 +1,11 @@
+/*.csv
+/icons
+/sandbox.py
+/test.csv
+/build
+/dist
+/__pycache__
+/*.spec
+/icon.ico
+/gui
+build_command
